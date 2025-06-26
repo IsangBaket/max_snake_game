@@ -9,7 +9,8 @@ title_Size = 50
 field_size = field_w, field_h = 10, 20
 field_res = field_w* title_Size, field_h* title_Size
 
-init_pos_offset = vec(field_size) // 2
+init_pos_offset = vec(field_w // 2 -1, 0)
+move_directions = {'left' : vec(-1, 0), 'right' : vec(1, 0), 'down' : vec(0, 1)}
 
 tetrominoes = {
     'T': [(0, 0), (-1, 0), (1, 0), (0, -1)],
