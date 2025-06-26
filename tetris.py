@@ -5,7 +5,18 @@ from tetromino import Tetromino
 class Tetris:
     def __init__(self, app):
         self.app = app
+        self.sprite_group = pg.sprite.Group()
         self.tetromino = Tetromino(self)
+
+    def control(self, pressed_key):
+        if pressed_key == pg.K_LEFT:
+            self.tetromino.move(direction='left')
+        elif pressed_key == pg.K_RIGHT:
+            self.tetromino.move(direction='right')
+        elif pressed_key == pg.K_UP:
+            self.tetromino.rotate()
+        elif pressed_key == pg.K_DOWN:
+            self.speed_up = True
 
     def draw_grid(self):
         for x in range(field_w):
@@ -13,9 +24,11 @@ class Tetris:
                 pg.draw.rect(self.app.screen, 'black',
                              (x * title_Size, y * title_Size, title_Size, title_Size), 1)
 
-
     def update(self):
-        self.tetromino.update()
+        if self.app.anim_trigger:
+            self.tetromino.update()
+        self.sprite_group.update()
 
     def draw(self):
         self.draw_grid()
+        self.sprite_group.draw(self.app.screen)
